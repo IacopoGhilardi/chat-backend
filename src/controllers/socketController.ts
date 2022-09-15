@@ -1,4 +1,5 @@
 import { io } from '../config/socket'
+import { writeFile, writeFileSync } from "fs";
 
 const socketEvents = () => {
     io.on('connection', (socket) => {
@@ -16,13 +17,14 @@ const socketEvents = () => {
           socket.broadcast.emit('incomingMessage', message);
         }); 
 
-        socket.on('newFile', (args) => {
-          console.log('file', args);
-          
-        })
+        socket.on('newFile', (file) => {
+          writeFile('../tmp', file, "binary", (err) => {
+            console.log(err);
+          });
+        });
       
         socket.on('disconnect', () => {
-          console.log('Hey user disconnected');
+          console.log('User disconnected');
         });
       });
 }

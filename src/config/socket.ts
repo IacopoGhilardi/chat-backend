@@ -8,7 +8,8 @@ const io = new Server(socketServer, {
     cors: {
       origin: "http://localhost:8080",
       methods: ["GET", "POST"]
-    }
+    },
+    maxHttpBufferSize: 1e8 // 100 MB
   });
 
 export { io, socketServer };
