@@ -4,6 +4,7 @@ const app: Application = express()
 import http from 'http'
 const socketServer = http.createServer(app)
 import { Server } from 'socket.io'
+
 const io = new Server(socketServer, {
     cors: {
       origin: "http://localhost:8080",

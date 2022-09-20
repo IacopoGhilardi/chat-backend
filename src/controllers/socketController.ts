@@ -1,8 +1,10 @@
-import { io } from '../config/socket'
-import { writeFile, writeFileSync } from "fs";
+import { io } from '../config/socket';
+import { writeFile } from "fs";
+import path from 'path';
 
 const socketEvents = () => {
     io.on('connection', (socket) => {
+
         console.log('Hey user is connected');
       
         socket.on("newMessage", (args) => {
@@ -17,9 +19,10 @@ const socketEvents = () => {
           socket.broadcast.emit('incomingMessage', message);
         }); 
 
-        socket.on('newFile', (file) => {
-          writeFile('../tmp', file, "binary", (err) => {
-            console.log(err);
+        socket.on("newFile", (file) => {
+          console.log('fileeeee', file);
+          writeFile(path.join(__dirname, "../tmp"), file, (err) => {
+            console.log(err);        
           });
         });
       
